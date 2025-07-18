@@ -1,10 +1,9 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { MdMyLocation } from "react-icons/md";
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-const SearchModal = ({ setLocation }) => {
+const SearchModal = ({ setLocation, setCoord }) => {
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
     const detectLocation = async () => {
@@ -25,7 +24,9 @@ const SearchModal = ({ setLocation }) => {
                     if (Array.isArray(data) && data.length > 0) {
                         const city = data[0].name || ""
                         const country = data[0].country || ""
-                        setLocation(`${city}, ${country}`)
+                        // setLocation(`${city}, ${region}, ${country}`);
+                        setLocation(`${city}`)
+                        setCoord(`${data[0].lat},${data[0].lon}`)
                         console.table(data)
                     } else {
                         setLocation("No matching location found")
@@ -64,7 +65,7 @@ const SearchModal = ({ setLocation }) => {
             } else {
                 setResults([])
             }
-        }, 400) // debounce 400ms
+        }, 250) // debounce 250ms
 
         return () => clearTimeout(delayDebounce)
     }, [query])
@@ -96,7 +97,7 @@ const SearchModal = ({ setLocation }) => {
                 <form method="dialog">
                     <ul className="list bg-base-100 rounded-box shadow-md">
                         <button
-                            className="btn btn-soft btn-primary font-grotesk font-normal justify-start w-full text-left"
+                            className="btn btn-soft btn-primary font-normal justify-start w-full text-left"
                             onClick={detectLocation}
                         >
                             <MdMyLocation />
@@ -106,9 +107,12 @@ const SearchModal = ({ setLocation }) => {
                             <li key={item.id}>
                                 <button
                                     type="submit"
-                                    className="btn btn-ghost font-grotesk font-normal justify-start w-full text-left"
-                                    //onClick={() => setLocation(`${item.name}, ${item.region}, ${item.country}`)}
-                                    onClick={() => setLocation(`${item.name}, ${item.country}`)}
+                                    className="btn btn-ghost font-normal justify-start w-full text-left"
+                                    onClick={() => {
+                                        //setLocation(`${item.name}, ${item.region}, ${item.country}`)
+                                        setLocation(`${item.name}`);
+                                        setCoord(`${item.lat},${item.lon}`);
+                                    }}
                                 >
                                     {item.name}, {item.region}, {item.country}
                                 </button>
