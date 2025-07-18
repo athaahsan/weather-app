@@ -54,8 +54,9 @@ const SearchModal = ({ setLocation, setCoord }) => {
                         const unique = []
                         const seen = new Set()
                         for (const item of data) {
-                            if (!seen.has(item.name)) {
-                                seen.add(item.name)
+                            const key = `${item.name}-${item.country}-${item.lat}-${item.lon}`
+                            if (!seen.has(key)) {
+                                seen.add(key)
                                 unique.push(item)
                             }
                         }
