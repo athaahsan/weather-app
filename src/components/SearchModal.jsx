@@ -54,7 +54,7 @@ const SearchModal = ({ setLocation, setCoord }) => {
                         const unique = []
                         const seen = new Set()
                         for (const item of data) {
-                            const key = `${item.name}-${item.country}-${item.lat}-${item.lon}`
+                            const key = `${item.name}-${item.region}-${item.country}`
                             if (!seen.has(key)) {
                                 seen.add(key)
                                 unique.push(item)
@@ -67,7 +67,6 @@ const SearchModal = ({ setLocation, setCoord }) => {
                 setResults([])
             }
         }, 250) // debounce 250ms
-
         return () => clearTimeout(delayDebounce)
     }, [query])
 
@@ -94,7 +93,7 @@ const SearchModal = ({ setLocation, setCoord }) => {
                     onChange={(e) => setQuery(e.target.value)}
                 />
             </label>
-            <div className="mt-4 w-full">
+            <div className="mt-2 w-full">
                 <form method="dialog">
                     <ul className="list bg-base-100 rounded-box shadow-md">
                         <button
@@ -108,7 +107,7 @@ const SearchModal = ({ setLocation, setCoord }) => {
                             <li key={item.id}>
                                 <button
                                     type="submit"
-                                    className="btn btn-ghost font-normal justify-start w-full text-left"
+                                    className="w-full text-left font-normal px-4 py-3 rounded-md hover:bg-base-200 whitespace-normal break-words"
                                     onClick={() => {
                                         //setLocation(`${item.name}, ${item.region}, ${item.country}`)
                                         setLocation(`${item.name}`);

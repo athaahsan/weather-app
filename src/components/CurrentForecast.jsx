@@ -37,7 +37,7 @@ const Current = ({ coord, setCoord, forecast, setForecast, location, setLocation
                         {showDetails ? <FaAngleUp /> : <FaAngleDown />}
                     </div>
                     <div
-                        className={`overflow-hidden transition-all duration-300 ${showDetails ? "max-h-[480px] sm:max-h-[240px]" : "max-h-0"}`}
+                        className={`overflow-hidden transition-all duration-300 ${showDetails ? "max-h-[240px]" : "max-h-0"}`}
                     >
                         <div className="grid grid-cols-2 gap-x-2 sm:gap-x-6 gap-y-4 text-base-content">
                             <div className="flex items-center gap-2">

@@ -1,6 +1,8 @@
 # Weather App
 
-A simple weather application built with React that displays:
+A simple weather application built with **React.js**, styled using **Tailwind CSS**, and enhanced with components from **DaisyUI**.
+
+This app displays:
 
 - **Current weather data** (temperature, condition, etc.)
 - **Today's air quality** information (e.g. PM2.5, CO, NO2, etc.)

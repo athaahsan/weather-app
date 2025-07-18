@@ -2,6 +2,8 @@ import Current from "./components/CurrentForecast.jsx";
 import HourlyForecast from './components/HourlyForecast.jsx';
 import TimeComp from "./components/TimeComp.jsx";
 import AirQuality from "./components/AirQuality.jsx";
+import Configuration from "./components/Configuration.jsx";
+import Footer from "./components/Footer.jsx";
 import './App.css'
 import { useEffect, useState } from 'react';
 
@@ -68,22 +70,31 @@ function App() {
   }, [coord]);
 
   return (
-    <div className="w-full px-8 py-8 font-grotesk flex flex-wrap justify-center gap-4">
-      {coord && <TimeComp coord={coord} />}
-      {forecast &&
-        <Current
-          coord={coord}
-          setCoord={setCoord}
-          forecast={forecast}
-          setForecast={setForecast}
-          location={location}
-          setLocation={setLocation}
-        />}
-      <div className="h-full flex flex-col gap-y-4 shrink w-128 max-w-full">
-        {forecast && <AirQuality forecast={forecast} />}
-        {forecast && <HourlyForecast forecast={forecast} />}
+    <>
+      <div className="min-h-screen flex flex-col font-grotesk">
+        <main className="flex-1">
+          <div className="w-full px-8 py-8 flex flex-wrap justify-center gap-4">
+            {coord && <TimeComp coord={coord} />}
+            {forecast &&
+              <Current
+                coord={coord}
+                setCoord={setCoord}
+                forecast={forecast}
+                setForecast={setForecast}
+                location={location}
+                setLocation={setLocation}
+              />}
+            <div className="h-full flex flex-col gap-y-4 shrink w-144 max-w-full">
+              {forecast && <AirQuality forecast={forecast} />}
+              {forecast && <HourlyForecast forecast={forecast} />}
+            </div>
+          </div>
+          <div></div>
+        </main>
+        <Footer />
       </div>
-    </div>
+    </>
+
   )
 }
 
