@@ -13,7 +13,7 @@ const HourlyForecast = ({ forecast }) => {
         <>
             <ul className="list bg-base-300 rounded-box shadow-sm h-full">
                 <li className="p-3 pb-3 text-xs opacity-60 tracking-wide">Hourly Forecast</li>
-                <div className="stats shadow-sm bg-base-200 h-full overflow-x-auto rounded-t-none">
+                <div className="stats bg-base-200 h-full overflow-x-auto rounded-t-none">
                     {hourlyData.map((item, index) => (
                         <div key={index} className="stat place-items-center w-full h-full">
                             <div className="stat-title">

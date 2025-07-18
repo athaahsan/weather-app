@@ -6,7 +6,7 @@ const AirQuality = ({ forecast }) => {
         <>
             <ul className="list bg-base-300 rounded-box shadow-sm h-full">
                 <li className="p-3 pb-3 text-xs opacity-60 tracking-wide">Air Quality Index</li>
-                <div className="stats shadow-sm bg-base-200 h-full overflow-x-auto rounded-t-none">
+                <div className="stats bg-base-200 h-full overflow-x-auto rounded-t-none">
                     <div className="stat place-items-center w-full h-full">
                         <div className="stat-desc">{forecast.current.air_quality.pm2_5}</div>
                         <div className="stat-desc">PM2.5</div>

@@ -79,7 +79,7 @@ function App() {
           location={location}
           setLocation={setLocation}
         />}
-      <div className="h-full flex flex-col gap-y-4 shrink w-112.5 sm:w-123.5 md:w-128 max-w-full">
+      <div className="h-full flex flex-col gap-y-4 shrink w-128 max-w-full">
         {forecast && <AirQuality forecast={forecast} />}
         {forecast && <HourlyForecast forecast={forecast} />}
       </div>
