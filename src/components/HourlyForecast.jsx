@@ -57,7 +57,7 @@ const HourlyForecast = ({
                 </div>
 
                 <dialog id="detailHourly" className="modal">
-                    <div className="modal-box flex flex-col items-center justify-center w-fit">
+                    <div className="modal-box flex flex-col items-center justify-center">
                         <div className="card bg-base-200 card-xl shadow ">
                             <div className="card-body items-center text-center py-8 px-8">
                                 <h2 className="text-xl mb-4">
