@@ -2,30 +2,33 @@ import React, { useEffect, useState } from 'react';
 import LocationComp from './LocationComp';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { FiThermometer, FiWind, FiCloud, FiUmbrella, FiEye, FiSun } from 'react-icons/fi'
-import { WiHumidity, WiBarometer, WiCloudy } from 'react-icons/wi'
-import { MdAir, MdMasks, MdOutlineWaterDrop } from 'react-icons/md'
+import { MdOutlineWaterDrop } from 'react-icons/md'
 import { TbGauge } from 'react-icons/tb'
-import { PiThermometer } from "react-icons/pi";
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-const Current = ({ coord, setCoord, forecast, setForecast, location, setLocation }) => {
+const CurrentForecast = ({
+    coord, setCoord,
+    forecast, setForecast,
+    location, setLocation,
+    toggleTemp, togglePrecipitation,
+    toggleWind, togglePressure, toggleVisibility
+}) => {
     const [showDetails, setShowDetails] = useState(true);
 
     return (
         <>
-            <div className="card bg-base-200 card-xl shadow-sm h-full">
+            <div className="card bg-base-200 card-xl shadow h-full">
                 <div className="card-body items-center text-center py-8 px-8">
-                    <LocationComp setCoord={setCoord} location={location} setLocation={setLocation} />
+                    <LocationComp coord={coord} setCoord={setCoord} location={location} setLocation={setLocation} />
                     <div className="flex justify-between items-center gap-2 mt-4">
                         <img
                             src={`https:${forecast.current.condition.icon}`}
                             alt="weather icon"
                             className="h-[2.5rem] w-auto"
                         />
-                        <h2 className="text-4xl">
-                            {`${forecast.current.temp_c}°C`}
-                        </h2>
+                        {toggleTemp === '°C' && <h2 className="text-4xl">{`${forecast.current.temp_c}°C`}</h2>}
+                        {toggleTemp === '°F' && <h2 className="text-4xl">{`${forecast.current.temp_f}°F`}</h2>}
                     </div>
                     <p>
                         {forecast.current.condition.text}
@@ -37,20 +40,22 @@ const Current = ({ coord, setCoord, forecast, setForecast, location, setLocation
                         {showDetails ? <FaAngleUp /> : <FaAngleDown />}
                     </div>
                     <div
-                        className={`overflow-hidden transition-all duration-300 ${showDetails ? "max-h-[240px]" : "max-h-0"}`}
+                        className={`overflow-hidden transition-all duration-300 ${showDetails ? "max-h-[200px] sm:max-h-[240px]" : "max-h-0"}`}
                     >
                         <div className="grid grid-cols-2 gap-x-2 sm:gap-x-6 gap-y-4 text-base-content">
                             <div className="flex items-center gap-2">
                                 <FiThermometer className="text-lg sm:text-xl" />
                                 <div className="flex flex-col leading-tight items-start">
-                                    <span className="text-sm sm:text-base">{forecast.current.feelslike_c}°C</span>
+                                    {toggleTemp === '°C' && <span className="text-sm sm:text-base">{forecast.current.feelslike_c}°C</span>}
+                                    {toggleTemp === '°F' && <span className="text-sm sm:text-base">{forecast.current.feelslike_f}°F</span>}
                                     <span className="text-xs sm:text-sm text-gray-500">Feels Like</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <FiUmbrella className="text-lg sm:text-xl" />
                                 <div className="flex flex-col leading-tight items-start">
-                                    <span className="text-sm sm:text-base">{forecast.current.precip_mm} mm</span>
+                                    {togglePrecipitation === 'mm' && <span className="text-sm sm:text-base">{forecast.current.precip_mm} mm</span>}
+                                    {togglePrecipitation === 'in' && <span className="text-sm sm:text-base">{forecast.current.precip_in} in</span>}
                                     <span className="text-xs sm:text-sm text-gray-500">Precipitation </span>
                                 </div>
                             </div>
@@ -71,21 +76,24 @@ const Current = ({ coord, setCoord, forecast, setForecast, location, setLocation
                             <div className="flex items-center gap-2">
                                 <FiWind className="text-lg sm:text-xl" />
                                 <div className="flex flex-col leading-tight items-start">
-                                    <span className="text-sm sm:text-base">{forecast.current.wind_kph} kph</span>
+                                    {toggleWind === 'kph' && <span className="text-sm sm:text-base">{forecast.current.wind_kph} kph</span>}
+                                    {toggleWind === 'mph' && <span className="text-sm sm:text-base">{forecast.current.wind_mph} mph</span>}
                                     <span className="text-xs sm:text-sm text-gray-500">Wind</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <TbGauge className="text-lg sm:text-xl" />
                                 <div className="flex flex-col leading-tight items-start">
-                                    <span className="text-sm sm:text-base">{forecast.current.pressure_mb} mb</span>
+                                    {togglePressure === 'mb' && <span className="text-sm sm:text-base">{forecast.current.pressure_mb} mb</span>}
+                                    {togglePressure === 'in' && <span className="text-sm sm:text-base">{forecast.current.pressure_in} in</span>}
                                     <span className="text-xs sm:text-sm text-gray-500">Pressure</span>
                                 </div>
                             </div>
                             <div className="flex items-center gap-2">
                                 <FiEye className="text-lg sm:text-xl" />
                                 <div className="flex flex-col leading-tight items-start">
-                                    <span className="text-sm sm:text-base">{forecast.current.vis_km} km</span>
+                                    {toggleVisibility === 'km' && <span className="text-sm sm:text-base">{forecast.current.vis_km} km</span>}
+                                    {toggleVisibility === 'miles' && <span className="text-sm sm:text-base">{forecast.current.vis_miles} miles</span>}
                                     <span className="text-xs sm:text-sm text-gray-500">Visibility</span>
                                 </div>
                             </div>
@@ -106,4 +114,4 @@ const Current = ({ coord, setCoord, forecast, setForecast, location, setLocation
     )
 }
 
-export default Current
+export default CurrentForecast

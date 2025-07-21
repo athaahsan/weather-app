@@ -3,9 +3,10 @@ import { MdMyLocation } from "react-icons/md";
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-const SearchModal = ({ setLocation, setCoord }) => {
+const SearchModal = ({ setLocation, coord, setCoord }) => {
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
+
     const detectLocation = async () => {
         if (!navigator.geolocation) {
             setLocation("Geolocation not supported")
@@ -14,19 +15,18 @@ const SearchModal = ({ setLocation, setCoord }) => {
         navigator.geolocation.getCurrentPosition(
             async (position) => {
                 const { latitude, longitude } = position.coords
-
                 try {
                     const res = await fetch(
                         `https://api.weatherapi.com/v1/search.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}`
                     )
                     const data = await res.json()
-
                     if (Array.isArray(data) && data.length > 0) {
                         const city = data[0].name || ""
                         const country = data[0].country || ""
-                        // setLocation(`${city}, ${region}, ${country}`);
+                        const newCoord = `${data[0].lat},${data[0].lon}`
                         setLocation(`${city}`)
-                        setCoord(`${data[0].lat},${data[0].lon}`)
+                        setCoord(newCoord)
+                        localStorage.setItem("location", city);
                         console.table(data)
                     } else {
                         setLocation("No matching location found")
@@ -95,7 +95,7 @@ const SearchModal = ({ setLocation, setCoord }) => {
             </label>
             <div className="mt-2 w-full">
                 <form method="dialog">
-                    <ul className="list bg-base-100 rounded-box shadow-md">
+                    <ul className="list bg-base-100 rounded-box shadow">
                         <button
                             className="btn btn-soft btn-primary font-normal justify-start w-full text-left"
                             onClick={detectLocation}
@@ -112,6 +112,8 @@ const SearchModal = ({ setLocation, setCoord }) => {
                                         //setLocation(`${item.name}, ${item.region}, ${item.country}`)
                                         setLocation(`${item.name}`);
                                         setCoord(`${item.lat},${item.lon}`);
+                                        localStorage.setItem("coord", `${item.lat},${item.lon}`)
+                                        localStorage.setItem("location", `${item.name}`);
                                     }}
                                 >
                                     {item.name}, {item.region}, {item.country}

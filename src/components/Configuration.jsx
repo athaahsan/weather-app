@@ -6,7 +6,7 @@ const Configuration = () => {
         <>
 
 
-            <button className="btn shadow-sm" onClick={() => document.getElementById('conf').showModal()}>
+            <button className="btn shadow" onClick={() => document.getElementById('conf').showModal()}>
                 <FiSettings className="text-lg bg-base-300" />
             </button>
             <dialog id="conf" className="modal">

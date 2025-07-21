@@ -4,7 +4,7 @@ import HourlyForecast from './HourlyForecast'
 const AirQuality = ({ forecast }) => {
     return (
         <>
-            <ul className="list bg-base-300 rounded-box shadow-sm h-full">
+            <ul className="list bg-base-300 rounded-box shadow h-full">
                 <li className="px-4 py-3 opacity-60 text-xs tracking-wide">Air Quality Index</li>
                 <div className="stats bg-base-200 h-full overflow-x-auto rounded-t-none">
                     <div className="stat place-items-center w-full h-full">

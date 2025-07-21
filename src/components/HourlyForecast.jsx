@@ -7,7 +7,11 @@ import { TbGauge } from 'react-icons/tb'
 import { PiThermometer } from "react-icons/pi";
 
 
-const HourlyForecast = ({ forecast }) => {
+const HourlyForecast = ({
+    forecast,
+    toggleTemp, togglePrecipitation,
+    toggleWind, togglePressure, toggleVisibility
+}) => {
     const [selectedHourly, setSelectedHourly] = useState(null);
 
     const hourlyData = forecast.forecast.forecastday
@@ -19,7 +23,7 @@ const HourlyForecast = ({ forecast }) => {
 
     return (
         <>
-            <ul className="list bg-base-300 rounded-box shadow-sm h-full">
+            <ul className="list bg-base-300 rounded-box shadow h-full">
                 <li className="px-4 py-3 opacity-60 text-xs tracking-wide">Hourly Forecast</li>
                 <div className="stats bg-base-200 h-full overflow-x-auto rounded-t-none">
                     {hourlyData.map((item, index) => (
@@ -46,14 +50,15 @@ const HourlyForecast = ({ forecast }) => {
                                 />
                             </div>
                             <div className="stat-desc">{item.condition.text}</div>
-                            <div className="stat-desc">{item.temp_c}°C</div>
+                            {toggleTemp === '°C' && <div className="stat-desc">{item.temp_c}°C</div>}
+                            {toggleTemp === '°F' && <div className="stat-desc">{item.temp_f}°F</div>}
                         </div>
                     ))}
                 </div>
 
                 <dialog id="detailHourly" className="modal">
                     <div className="modal-box flex flex-col items-center justify-center w-fit">
-                        <div className="card bg-base-200 card-xl shadow-sm ">
+                        <div className="card bg-base-200 card-xl shadow ">
                             <div className="card-body items-center text-center py-8 px-8">
                                 <h2 className="text-xl mb-4">
                                     {selectedHourly && new Date(selectedHourly.time).toLocaleTimeString([], {
@@ -71,9 +76,8 @@ const HourlyForecast = ({ forecast }) => {
                                                 alt="weather icon"
                                                 className="h-[2.5rem] w-auto"
                                             />
-                                            <h2 className="text-4xl">
-                                                {`${selectedHourly.temp_c}°C`}
-                                            </h2>
+                                            {toggleTemp === '°C' && <h2 className="text-4xl">{`${selectedHourly.temp_c}°C`}</h2>}
+                                            {toggleTemp === '°F' && <h2 className="text-4xl">{`${selectedHourly.temp_f}°F`}</h2>}
                                         </div>
                                         <p>
                                             {selectedHourly.condition.text}
@@ -87,14 +91,16 @@ const HourlyForecast = ({ forecast }) => {
                                             <div className="flex items-center gap-2">
                                                 <FiThermometer className="text-lg sm:text-xl" />
                                                 <div className="flex flex-col leading-tight items-start">
-                                                    <span className="text-sm sm:text-base">{selectedHourly.feelslike_c}°C</span>
+                                                    {toggleTemp === '°C' && <span className="text-sm sm:text-base">{selectedHourly.feelslike_c}°C</span>}
+                                                    {toggleTemp === '°F' && <span className="text-sm sm:text-base">{selectedHourly.feelslike_f}°F</span>}
                                                     <span className="text-xs sm:text-sm text-gray-500">Feels Like</span>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <FiUmbrella className="text-lg sm:text-xl" />
                                                 <div className="flex flex-col leading-tight items-start">
-                                                    <span className="text-sm sm:text-base">{selectedHourly.precip_mm} mm</span>
+                                                    {togglePrecipitation === 'mm' && <span className="text-sm sm:text-base">{selectedHourly.precip_mm} mm</span>}
+                                                    {togglePrecipitation === 'in' && <span className="text-sm sm:text-base">{selectedHourly.precip_in} in</span>}
                                                     <span className="text-xs sm:text-sm text-gray-500">Precipitation </span>
                                                 </div>
                                             </div>
@@ -115,21 +121,24 @@ const HourlyForecast = ({ forecast }) => {
                                             <div className="flex items-center gap-2">
                                                 <FiWind className="text-lg sm:text-xl" />
                                                 <div className="flex flex-col leading-tight items-start">
-                                                    <span className="text-sm sm:text-base">{selectedHourly.wind_kph} kph</span>
+                                                    {toggleWind === 'kph' && <span className="text-sm sm:text-base">{selectedHourly.wind_kph} kph</span>}
+                                                    {toggleWind === 'mph' && <span className="text-sm sm:text-base">{selectedHourly.wind_mph} mph</span>}
                                                     <span className="text-xs sm:text-sm text-gray-500">Wind</span>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <TbGauge className="text-lg sm:text-xl" />
                                                 <div className="flex flex-col leading-tight items-start">
-                                                    <span className="text-sm sm:text-base">{selectedHourly.pressure_mb} mb</span>
+                                                    {togglePressure === 'mb' && <span className="text-sm sm:text-base">{selectedHourly.pressure_mb} mb</span>}
+                                                    {togglePressure === 'in' && <span className="text-sm sm:text-base">{selectedHourly.pressure_in} in</span>}
                                                     <span className="text-xs sm:text-sm text-gray-500">Pressure</span>
                                                 </div>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <FiEye className="text-lg sm:text-xl" />
                                                 <div className="flex flex-col leading-tight items-start">
-                                                    <span className="text-sm sm:text-base">{selectedHourly.vis_km} km</span>
+                                                    {toggleVisibility === 'km' && <span className="text-sm sm:text-base">{selectedHourly.vis_km} km</span>}
+                                                    {toggleVisibility === 'miles' && <span className="text-sm sm:text-base">{selectedHourly.vis_miles} miles</span>}
                                                     <span className="text-xs sm:text-sm text-gray-500">Visibility</span>
                                                 </div>
                                             </div>

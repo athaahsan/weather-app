@@ -5,7 +5,7 @@ import { MdLocationOn } from "react-icons/md";
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
-const LocationComp = ({ setCoord, location, setLocation }) => {
+const LocationComp = ({ coord, setCoord, location, setLocation }) => {
 
     return (
         <>
@@ -18,7 +18,7 @@ const LocationComp = ({ setCoord, location, setLocation }) => {
             </button>
             <dialog id="my_modal_2" className="modal">
                 <div className="modal-box">
-                    <SearchModal setLocation={setLocation} setCoord={setCoord} />
+                    <SearchModal setLocation={setLocation} coord= {coord} setCoord={setCoord} />
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>

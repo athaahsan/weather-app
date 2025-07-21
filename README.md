@@ -9,3 +9,13 @@ This app displays:
 - **24-hour hourly forecast** data
 
 The data are powered by the [WeatherAPI](https://www.weatherapi.com/), which provides reliable and up-to-date weather information via their API.
+
+---
+
+## 🌐 Live Demo
+
+This project is deployed and accessible online:
+
+🔗 [https://atha-weather-app.netlify.app/](https://atha-weather-app.netlify.app/)
+
+Feel free to explore the app live!
