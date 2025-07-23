@@ -27,130 +27,136 @@ const Navbar = ({
         <>
             <div className="navbar bg-base-300 shadow sticky top-0 z-50">
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle hover:bg-base-100">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
+                    <div className="drawer">
+                        <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+                        <div className="drawer-content">
+                            <label htmlFor="my-drawer" className="btn btn-ghost btn-circle hover:bg-base-100 drawer-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
+                            </label>
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className="list menu dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li className="list-row flex flex-col gap-2">
-                                <p className="text-xs p-0 pointer-events-none">Temperature</p>
-                                <div className="join p-0 m-0 gap-0 hover:bg-base-100">
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="temp_opt"
-                                        value="°C"
-                                        aria-label="°C"
-                                        checked={toggleTemp === '°C'}
-                                        onChange={tempChange}
-                                    />
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="temp_opt"
-                                        value="°F"
-                                        aria-label="°F"
-                                        checked={toggleTemp === '°F'}
-                                        onChange={tempChange}
-                                    />
-                                </div>
-                            </li>
-                            <li className="list-row flex flex-col gap-2">
-                                <p className="text-xs p-0 pointer-events-none">Precipitation</p>
-                                <div className="join p-0 m-0 gap-0 hover:bg-base-100">
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="preci_opt"
-                                        value="mm"
-                                        aria-label="mm"
-                                        checked={togglePrecipitation === 'mm'}
-                                        onChange={precipitationChange}
-                                    />
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="preci_opt"
-                                        aria-label="in"
-                                        value="in"
-                                        checked={togglePrecipitation === 'in'}
-                                        onChange={precipitationChange}
-                                    />
-                                </div>
-                            </li>
-                            <li className="list-row flex flex-col gap-2">
-                                <p className="text-xs p-0 pointer-events-none">Wind</p>
-                                <div className="join p-0 m-0 gap-0 hover:bg-base-100">
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="wind_opt"
-                                        aria-label="kph"
-                                        value="kph"
-                                        checked={toggleWind === 'kph'}
-                                        onChange={windChange}
-                                    />
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="wind_opt"
-                                        aria-label="mph"
-                                        value="mph"
-                                        checked={toggleWind === 'mph'}
-                                        onChange={windChange}
-                                    />
-                                </div>
-                            </li>
-                            <li className="list-row flex flex-col gap-2">
-                                <p className="text-xs p-0 pointer-events-none">Pressure</p>
-                                <div className="join p-0 m-0 gap-0 hover:bg-base-100">
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="press_opt"
-                                        aria-label="mb"
-                                        value="mb"
-                                        checked={togglePressure === 'mb'}
-                                        onChange={pressureChange}
-                                    />
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="press_opt"
-                                        aria-label="in"
-                                        value="in"
-                                        checked={togglePressure === 'in'}
-                                        onChange={pressureChange}
-                                    />
-                                </div>
-                            </li>
-                            <li className="list-row flex flex-col gap-2">
-                                <p className="text-xs p-0 pointer-events-none">Visibility</p>
-                                <div className="join p-0 m-0 gap-0 hover:bg-base-100">
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="vis_opt"
-                                        aria-label="km"
-                                        value="km"
-                                        checked={toggleVisibility === 'km'}
-                                        onChange={visibilityChange}
-                                    />
-                                    <input
-                                        className="join-item btn btn-sm w-1/2"
-                                        type="radio"
-                                        name="vis_opt"
-                                        aria-label="miles"
-                                        value="miles"
-                                        checked={toggleVisibility === 'miles'}
-                                        onChange={visibilityChange}
-                                    />
-                                </div>
-                            </li>
-                        </ul>
+                        <div className="drawer-side">
+                            <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+                            <ul className="list menu bg-base-100 text-base-content min-h-full w-60 md:w-80 p-4">
+                                <p className="text-xl p-0 pointer-events-none pl-4 pt-4 pb-4">Unit Settings</p>
+                                <li className="list-row flex flex-col gap-2">
+                                    <p className="text-xs p-0 pointer-events-none">Temperature</p>
+                                    <div className="join p-0 m-0 gap-0 hover:bg-base-100">
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="temp_opt"
+                                            value="°C"
+                                            aria-label="°C"
+                                            checked={toggleTemp === '°C'}
+                                            onChange={tempChange}
+                                        />
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="temp_opt"
+                                            value="°F"
+                                            aria-label="°F"
+                                            checked={toggleTemp === '°F'}
+                                            onChange={tempChange}
+                                        />
+                                    </div>
+                                </li>
+                                <li className="list-row flex flex-col gap-2">
+                                    <p className="text-xs p-0 pointer-events-none">Precipitation</p>
+                                    <div className="join p-0 m-0 gap-0 hover:bg-base-100">
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="preci_opt"
+                                            value="mm"
+                                            aria-label="mm"
+                                            checked={togglePrecipitation === 'mm'}
+                                            onChange={precipitationChange}
+                                        />
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="preci_opt"
+                                            aria-label="in"
+                                            value="in"
+                                            checked={togglePrecipitation === 'in'}
+                                            onChange={precipitationChange}
+                                        />
+                                    </div>
+                                </li>
+                                <li className="list-row flex flex-col gap-2">
+                                    <p className="text-xs p-0 pointer-events-none">Wind</p>
+                                    <div className="join p-0 m-0 gap-0 hover:bg-base-100">
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="wind_opt"
+                                            aria-label="kph"
+                                            value="kph"
+                                            checked={toggleWind === 'kph'}
+                                            onChange={windChange}
+                                        />
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="wind_opt"
+                                            aria-label="mph"
+                                            value="mph"
+                                            checked={toggleWind === 'mph'}
+                                            onChange={windChange}
+                                        />
+                                    </div>
+                                </li>
+                                <li className="list-row flex flex-col gap-2">
+                                    <p className="text-xs p-0 pointer-events-none">Pressure</p>
+                                    <div className="join p-0 m-0 gap-0 hover:bg-base-100">
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="press_opt"
+                                            aria-label="mb"
+                                            value="mb"
+                                            checked={togglePressure === 'mb'}
+                                            onChange={pressureChange}
+                                        />
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="press_opt"
+                                            aria-label="in"
+                                            value="in"
+                                            checked={togglePressure === 'in'}
+                                            onChange={pressureChange}
+                                        />
+                                    </div>
+                                </li>
+                                <li className="list-row flex flex-col gap-2">
+                                    <p className="text-xs p-0 pointer-events-none">Visibility</p>
+                                    <div className="join p-0 m-0 gap-0 hover:bg-base-100">
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="vis_opt"
+                                            aria-label="km"
+                                            value="km"
+                                            checked={toggleVisibility === 'km'}
+                                            onChange={visibilityChange}
+                                        />
+                                        <input
+                                            className="join-item btn btn-sm w-1/2"
+                                            type="radio"
+                                            name="vis_opt"
+                                            aria-label="miles"
+                                            value="miles"
+                                            checked={toggleVisibility === 'miles'}
+                                            onChange={visibilityChange}
+                                        />
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+
                 </div>
                 <div className="navbar-center gap-2">
                     <img

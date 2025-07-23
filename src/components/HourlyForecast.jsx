@@ -19,8 +19,6 @@ const HourlyForecast = ({
         .filter(item => item.time_epoch > forecast.location.localtime_epoch)
         .slice(0, 24);
 
-    console.table(hourlyData);
-
     return (
         <>
             <ul className="list bg-base-300 rounded-box shadow h-full">
