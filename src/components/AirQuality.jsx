@@ -8,15 +8,6 @@ const AirQuality = ({ forecast }) => {
                 <li className="px-4 py-3 opacity-60 text-xs tracking-wide">Air Quality</li>
                 <div className="stats bg-base-200 h-full overflow-x-auto rounded-t-none">
                     <div className="stat place-items-center w-full h-full">
-                        {forecast.current.air_quality["us-epa-index"] === 1 && <div className="stat-desc text-sm text-green-400">Good</div>}
-                        {forecast.current.air_quality["us-epa-index"] === 2 && <div className="stat-desc text-sm text-yellow-400">Moderate</div>}
-                        {forecast.current.air_quality["us-epa-index"] === 3 && <div className="stat-desc text-sm text-orange-400">Unhealthy for Sensitive Groups</div>}
-                        {forecast.current.air_quality["us-epa-index"] === 4 && <div className="stat-desc text-sm text-red-400">Unhealthy</div>}
-                        {forecast.current.air_quality["us-epa-index"] === 5 && <div className="stat-desc text-sm text-red-500">Very Unhealthy</div>}
-                        {forecast.current.air_quality["us-epa-index"] === 6 && <div className="stat-desc text-sm text-red-600">Hazardous</div>}
-                        <div className="stat-desc text-sm">US EPA Index</div>
-                    </div>
-                    <div className="stat place-items-center w-full h-full">
                         {(() => {
                             const pm25 = Number(forecast.current.air_quality.pm2_5);
                             let color = "text-gray-400";
@@ -123,6 +114,15 @@ const AirQuality = ({ forecast }) => {
                             );
                         })()}
                         <div className="stat-desc text-sm">O₃</div>
+                    </div>
+                    <div className="stat place-items-center w-full h-full">
+                        {forecast.current.air_quality["us-epa-index"] === 1 && <div className="stat-desc text-sm text-green-400">Good</div>}
+                        {forecast.current.air_quality["us-epa-index"] === 2 && <div className="stat-desc text-sm text-yellow-400">Moderate</div>}
+                        {forecast.current.air_quality["us-epa-index"] === 3 && <div className="stat-desc text-sm text-orange-400">Unhealthy for Sensitive Groups</div>}
+                        {forecast.current.air_quality["us-epa-index"] === 4 && <div className="stat-desc text-sm text-red-400">Unhealthy</div>}
+                        {forecast.current.air_quality["us-epa-index"] === 5 && <div className="stat-desc text-sm text-red-500">Very Unhealthy</div>}
+                        {forecast.current.air_quality["us-epa-index"] === 6 && <div className="stat-desc text-sm text-red-600">Hazardous</div>}
+                        <div className="stat-desc text-sm">US EPA Index</div>
                     </div>
                 </div>
             </ul>
