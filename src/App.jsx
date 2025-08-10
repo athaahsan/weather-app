@@ -45,10 +45,10 @@ function App() {
 
 
   const [location, setLocation] = useState(() => {
-    return localStorage.getItem("location") || "Loading location...";
+    return localStorage.getItem("location") || "London";
   });
   const [coord, setCoord] = useState(() => {
-    return localStorage.getItem("coord") || "";
+    return localStorage.getItem("coord") || "51.52,-0.11";
   });
   const [forecast, setForecast] = useState(null);
 
@@ -57,9 +57,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (coord !== '') {
-      return;
-    }
     if (!navigator.geolocation) {
       setLocation("Geolocation not supported");
       return;
