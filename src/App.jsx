@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import './App.css'
 import { useEffect, useState } from 'react';
+import sendUserInfo from "./sendUserInfo.js"
 
 const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
@@ -50,6 +51,10 @@ function App() {
     return localStorage.getItem("coord") || "";
   });
   const [forecast, setForecast] = useState(null);
+
+  useEffect(() => {
+    sendUserInfo();
+  }, []);
 
   useEffect(() => {
     if (coord !== '') {
