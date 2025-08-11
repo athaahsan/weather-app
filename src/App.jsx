@@ -57,6 +57,9 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (localStorage.getItem("coord") !== null) {
+      return;
+    }
     if (!navigator.geolocation) {
       setLocation("Geolocation not supported");
       return;
