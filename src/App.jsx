@@ -67,7 +67,6 @@ function App() {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         const { latitude, longitude } = position.coords;
-        console.log(latitude, longitude);
         try {
           const res = await fetch(
             `https://api.weatherapi.com/v1/search.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}`
@@ -82,7 +81,6 @@ function App() {
             setLocation(city);
             setCoord(newCoord);
             localStorage.setItem("location", city);
-            console.table(data);
           } else {
             setLocation("No matching location found");
           }

