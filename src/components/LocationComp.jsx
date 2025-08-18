@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { FiMapPin } from 'react-icons/fi';
 import { MdLocationOn } from "react-icons/md";
 
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-
 const LocationComp = ({ coord, setCoord, location, setLocation }) => {
 
     return (

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { MdMyLocation } from "react-icons/md";
 
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-
 const SearchModal = ({ setLocation, coord, setCoord }) => {
     const [query, setQuery] = useState('')
     const [results, setResults] = useState([])
@@ -17,8 +15,8 @@ const SearchModal = ({ setLocation, coord, setCoord }) => {
                 const { latitude, longitude } = position.coords
                 try {
                     const res = await fetch(
-                        `https://api.weatherapi.com/v1/search.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}`
-                    )
+                        `/.netlify/functions/getAPI?type=search&q=${latitude},${longitude}`
+                    );
                     const data = await res.json()
                     if (Array.isArray(data) && data.length > 0) {
                         const city = data[0].name || ""
@@ -47,7 +45,7 @@ const SearchModal = ({ setLocation, coord, setCoord }) => {
         const delayDebounce = setTimeout(() => {
             if (query.length > 1) {
                 fetch(
-                    `https://api.weatherapi.com/v1/search.json?key=${WEATHER_API_KEY}&q=${query}`
+                    `/.netlify/functions/getAPI?type=search&q=${query}`
                 )
                     .then((res) => res.json())
                     .then((data) => {

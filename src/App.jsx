@@ -6,9 +6,7 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import './App.css'
 import { useEffect, useState } from 'react';
-import sendUserInfo from "./sendUserInfo.js"
-
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+import prepareUserInfo from "./prepareUserInfo.js"
 
 function App() {
   const [toggleTemp, setToggleTemp] = useState(() => {
@@ -53,7 +51,7 @@ function App() {
   const [forecast, setForecast] = useState(null);
 
   useEffect(() => {
-    sendUserInfo();
+    prepareUserInfo();
   }, []);
 
   useEffect(() => {
@@ -69,7 +67,7 @@ function App() {
         const { latitude, longitude } = position.coords;
         try {
           const res = await fetch(
-            `https://api.weatherapi.com/v1/search.json?key=${WEATHER_API_KEY}&q=${latitude},${longitude}`
+            `/.netlify/functions/getAPI?type=search&q=${latitude},${longitude}`
           );
           const data = await res.json();
 
@@ -101,7 +99,7 @@ function App() {
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${coord}&days=2&aqi=yes&alerts=no`
+          `/.netlify/functions/getAPI?type=forecast&q=${coord}`
         );
         const data = await res.json();
         setForecast(data);
