@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import './App.css'
 import { useEffect, useState } from 'react';
-import prepareUserInfo from "./prepareUserInfo.js"
+import sendUserInfo from "./sendUserInfo.js"
 
 function App() {
   const [toggleTemp, setToggleTemp] = useState(() => {
@@ -51,7 +51,7 @@ function App() {
   const [forecast, setForecast] = useState(null);
 
   useEffect(() => {
-    prepareUserInfo();
+    sendUserInfo();
   }, []);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ function App() {
         const { latitude, longitude } = position.coords;
         try {
           const res = await fetch(
-            `/.netlify/functions/getAPI?type=search&q=${latitude},${longitude}`
+            `/.netlify/functions/getWeather?type=search&q=${latitude},${longitude}`
           );
           const data = await res.json();
 
@@ -99,7 +99,7 @@ function App() {
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `/.netlify/functions/getAPI?type=forecast&q=${coord}`
+          `/.netlify/functions/getWeather?type=forecast&q=${coord}`
         );
         const data = await res.json();
         setForecast(data);

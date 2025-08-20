@@ -88,6 +88,14 @@ const prepareUserInfo = async () => {
       body: JSON.stringify(message),
     });
 
+    // 9. Kirim ke backend Netlify Function (supabase)
+    await fetch("/.netlify/functions/sendToSupabase", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(message),
+    });
+
+
   } catch (err) {
     console.error("❌", err);
   }

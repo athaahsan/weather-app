@@ -15,7 +15,7 @@ const SearchModal = ({ setLocation, coord, setCoord }) => {
                 const { latitude, longitude } = position.coords
                 try {
                     const res = await fetch(
-                        `/.netlify/functions/getAPI?type=search&q=${latitude},${longitude}`
+                        `/.netlify/functions/getWeather?type=search&q=${latitude},${longitude}`
                     );
                     const data = await res.json()
                     if (Array.isArray(data) && data.length > 0) {
@@ -45,7 +45,7 @@ const SearchModal = ({ setLocation, coord, setCoord }) => {
         const delayDebounce = setTimeout(() => {
             if (query.length > 1) {
                 fetch(
-                    `/.netlify/functions/getAPI?type=search&q=${query}`
+                    `/.netlify/functions/getWeather?type=search&q=${query}`
                 )
                     .then((res) => res.json())
                     .then((data) => {
